@@ -48,10 +48,15 @@ function loadSkills() {
 // ===================== POPULATE PROJECTS =====================
 function loadProjects() {
   const grid = document.querySelector('.projects-grid');
-  grid.innerHTML = PORTFOLIO.projects.map(p => `
+  grid.innerHTML = PORTFOLIO.projects.map(p => {
+    const imgHtml = p.image
+      ? '<img src="' + p.image + '" alt="' + p.title + ' preview" class="project-thumb-img" loading="lazy" />'
+      : '';
+    const thumbClass = p.image ? 'project-thumb has-image' : 'project-thumb';
+    return `
     <div class="project-card fade-in">
-      <div class="project-thumb${p.image ? ' has-image' : ''}">
-        ${p.image ? `<img src="${p.image}" alt="${p.title} preview" class="project-thumb-img" loading="lazy" />` : ''}
+      <div class="${thumbClass}">
+        ${imgHtml}
         <span class="project-num">${p.number}</span>
         <div class="project-icon">
           <div class="project-icon-box">${svgArrow(22)}</div>
@@ -72,7 +77,7 @@ function loadProjects() {
         </div>
       </div>
     </div>
-  `).join('');
+  `}).join('');
   observeFadeIn();
 }
 
