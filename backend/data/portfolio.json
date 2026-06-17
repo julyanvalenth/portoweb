@@ -40,7 +40,7 @@
       "year": "2026",
       "description": "Mobile budgeting app that automatically syncs and parses bank & e-wallet transaction emails from Gmail for personal finance tracking.",
       "tags": ["Flutter", "Node.js", "Gmail API"],
-      "link": "https://github.com/julyanvalenth/Budgeting",
+      "link": "https://github.com/julyanvalenth/budgeting.git",
       "number": "02"
     },
     {
