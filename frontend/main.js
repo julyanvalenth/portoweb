@@ -1,12 +1,3 @@
-const API = '/api';
-
-// ===================== FETCH HELPERS =====================
-async function fetchJSON(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
-}
-
 // ===================== RENDER HELPERS =====================
 function svgArrow(size = 13) {
   return `<svg width="${size}" height="${size}" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,174 +5,116 @@ function svgArrow(size = 13) {
   </svg>`;
 }
 
-function svgDownload(size = 15) {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7.5 2v7m0 0L5 6.5m2.5 2.5L10 6.5M3 11h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
-}
+// ===================== POPULATE PROFILE =====================
+function loadProfile() {
+  const d = PORTFOLIO.profile;
 
-// ===================== POPULATE PROFILE (HERO + NAV + ABOUT) =====================
-async function loadProfile() {
-  try {
-    const { data } = await fetchJSON(`${API}/profile`);
+  document.querySelector('.nav-logo').textContent = d.name;
+  document.querySelector('.hero-badge span').textContent = d.badge;
+  document.querySelector('.hero-name').textContent = d.name;
 
-    // NAV
-    document.querySelector('.nav-logo').textContent = data.name;
+  document.querySelector('.hero-desc p').innerHTML = d.description
+    .replace('Software Engineering', '<span class="accent">Software Engineering</span>')
+    .replace('mobile application', '<span class="accent">mobile application</span>');
 
-    // HERO
-    document.querySelector('.hero-badge span').textContent = data.badge;
-    document.querySelector('.hero-name').textContent = data.name;
+  const socialsEl = document.querySelector('.hero-social-links');
+  socialsEl.innerHTML = [
+    { label: 'LinkedIn',  url: d.socials.linkedin  },
+    { label: 'GitHub',    url: d.socials.github    },
+    { label: 'Instagram', url: d.socials.instagram },
+  ].map(s => `<a href="${s.url}" target="_blank" rel="noopener" class="hero-social-link">${s.label}</a>`).join('');
 
-    const descEl = document.querySelector('.hero-desc p');
-    descEl.innerHTML = data.description.replace(
-      'Software Engineering', '<span class="accent">Software Engineering</span>'
-    ).replace(
-      'mobile application', '<span class="accent">mobile application</span>'
-    );
+  const bioEls = document.querySelectorAll('.about-bio');
+  d.bio.forEach((text, i) => { if (bioEls[i]) bioEls[i].textContent = text; });
 
-    document.querySelector('.hero-role').innerHTML =
-      `<p>Tech Interest</p><p class="bold">&amp; Developer</p>`;
+  document.querySelector('.about-statement').innerHTML =
+    `I'm a <span class="accent">passionate developer</span> who turns ideas into real mobile products. I focus on <span class="accent">clean code</span>, sharp solutions, and seamless user experience.`;
 
-    // Social links
-    const socials = [
-      { label: 'LinkedIn',  url: data.socials.linkedin },
-      { label: 'GitHub',    url: data.socials.github },
-      { label: 'Instagram', url: data.socials.instagram },
-    ];
-    const socialsEl = document.querySelector('.hero-social-links');
-    socialsEl.innerHTML = socials.map(s =>
-      `<a href="${s.url}" target="_blank" class="hero-social-link">${s.label}</a>`
-    ).join('');
+  document.querySelector('.btn-cv').href = d.cv_url;
 
-    // ABOUT
-    const bioEls = document.querySelectorAll('.about-bio');
-    data.bio.forEach((text, i) => { if (bioEls[i]) bioEls[i].textContent = text; });
+  document.querySelector('.footer-mini').textContent = "// LET'S CONNECT";
+  document.querySelector('.footer-heading').textContent = d.footer.heading;
+  document.querySelector('.btn-say-hello').href = `mailto:${d.footer.email}`;
 
-    // About statement
-    document.querySelector('.about-statement').innerHTML =
-      `I'm a <span class="accent">passionate developer</span> who turns ideas into real mobile products. I focus on <span class="accent">clean code</span>, sharp solutions, and seamless user experience.`;
-
-    // CV link
-    document.querySelector('.btn-cv').href = data.cv_url;
-
-    // FOOTER
-    document.querySelector('.footer-mini').textContent = "// LET'S CONNECT";
-    document.querySelector('.footer-heading').textContent = data.footer.heading;
-    document.querySelector('.btn-say-hello').href = `mailto:${data.footer.email}`;
-
-    // Contact email in modal
-    document.querySelector('.modal-contact-email').textContent = data.email;
-
-  } catch (err) {
-    console.error('loadProfile:', err);
-  }
+  document.querySelector('.modal-contact-email').textContent = d.email;
 }
 
 // ===================== POPULATE SKILLS =====================
-async function loadSkills() {
-  try {
-    const { data } = await fetchJSON(`${API}/profile/skills`);
-    const el = document.querySelector('.skills-list');
-    el.innerHTML = data.map(s => `<span class="skill-tag">${s}</span>`).join('');
-  } catch (err) {
-    console.error('loadSkills:', err);
-  }
+function loadSkills() {
+  const el = document.querySelector('.skills-list');
+  el.innerHTML = PORTFOLIO.skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
 }
 
 // ===================== POPULATE PROJECTS =====================
-async function loadProjects() {
-  try {
-    const { data } = await fetchJSON(`${API}/projects`);
-    const grid = document.querySelector('.projects-grid');
-
-    grid.innerHTML = data.map(p => `
-      <div class="project-card fade-in">
-        <div class="project-thumb">
-          <span class="project-num">${p.number}</span>
-          <div class="project-icon">
-            <div class="project-icon-box">
-              ${svgArrow(22)}
-            </div>
-            <span class="project-preview-label">PROJECT PREVIEW</span>
-          </div>
-        </div>
-        <div class="project-body">
-          <div class="project-meta">
-            <h3 class="project-title">${p.title}</h3>
-            <span class="project-year">${p.year}</span>
-          </div>
-          <p class="project-desc">${p.description}</p>
-          <div class="project-footer">
-            <span class="project-tags">${p.tags.join(' · ')}</span>
-            <a href="${p.link}" target="_blank" class="project-link-btn" aria-label="View project">
-              ${svgArrow(13)}
-            </a>
-          </div>
+function loadProjects() {
+  const grid = document.querySelector('.projects-grid');
+  grid.innerHTML = PORTFOLIO.projects.map(p => `
+    <div class="project-card fade-in">
+      <div class="project-thumb">
+        <span class="project-num">${p.number}</span>
+        <div class="project-icon">
+          <div class="project-icon-box">${svgArrow(22)}</div>
+          <span class="project-preview-label">PROJECT PREVIEW</span>
         </div>
       </div>
-    `).join('');
-
-    observeFadeIn();
-  } catch (err) {
-    console.error('loadProjects:', err);
-  }
+      <div class="project-body">
+        <div class="project-meta">
+          <h3 class="project-title">${p.title}</h3>
+          <span class="project-year">${p.year}</span>
+        </div>
+        <p class="project-desc">${p.description}</p>
+        <div class="project-footer">
+          <span class="project-tags">${p.tags.join(' · ')}</span>
+          <a href="${p.link}" target="_blank" rel="noopener" class="project-link-btn" aria-label="View project">
+            ${svgArrow(13)}
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  observeFadeIn();
 }
 
 // ===================== POPULATE EDUCATION =====================
-async function loadEducation() {
-  try {
-    const { data } = await fetchJSON(`${API}/education`);
-    const list = document.querySelector('.edu-list');
-
-    list.innerHTML = data.map(e => `
-      <div class="edu-item fade-in">
-        <div class="edu-period">${e.period}</div>
-        <div class="edu-right">
-          <div class="edu-degree">${e.degree}</div>
-          <div class="edu-school">${e.institution} — ${e.major}</div>
-          ${e.description ? `<p class="edu-desc">${e.description}</p>` : ''}
-        </div>
+function loadEducation() {
+  const list = document.querySelector('.edu-list');
+  list.innerHTML = PORTFOLIO.education.map(e => `
+    <div class="edu-item fade-in">
+      <div class="edu-period">${e.period}</div>
+      <div class="edu-right">
+        <div class="edu-degree">${e.degree}</div>
+        <div class="edu-school">${e.institution} — ${e.major}</div>
+        ${e.description ? `<p class="edu-desc">${e.description}</p>` : ''}
       </div>
-    `).join('');
-
-    observeFadeIn();
-  } catch (err) {
-    console.error('loadEducation:', err);
-  }
+    </div>
+  `).join('');
+  observeFadeIn();
 }
 
 // ===================== POPULATE ORGANIZATIONS =====================
-async function loadOrganizations() {
-  try {
-    const { data } = await fetchJSON(`${API}/organizations`);
-    const list = document.querySelector('.org-list');
-
-    list.innerHTML = data.map(o => `
-      <div class="edu-item fade-in">
-        <div class="edu-period">${o.period}</div>
-        <div class="edu-right">
-          <div class="edu-degree">${o.role}</div>
-          <ul class="edu-activities">
-            ${o.activities.map(a => `<li>${a}</li>`).join('')}
-          </ul>
-        </div>
+function loadOrganizations() {
+  const list = document.querySelector('.org-list');
+  list.innerHTML = PORTFOLIO.organizations.map(o => `
+    <div class="edu-item fade-in">
+      <div class="edu-period">${o.period}</div>
+      <div class="edu-right">
+        <div class="edu-degree">${o.role}</div>
+        <ul class="edu-activities">
+          ${o.activities.map(a => `<li>${a}</li>`).join('')}
+        </ul>
       </div>
-    `).join('');
-
-    observeFadeIn();
-  } catch (err) {
-    console.error('loadOrganizations:', err);
-  }
+    </div>
+  `).join('');
+  observeFadeIn();
 }
 
-// ===================== CONTACT FORM =====================
+// ===================== CONTACT FORM (Formspree) =====================
 function initContactForm() {
-  const overlay = document.querySelector('.modal-overlay');
-  const form    = document.querySelector('#contact-form');
-  const msgEl   = document.querySelector('.form-msg');
+  const overlay   = document.querySelector('.modal-overlay');
+  const form      = document.querySelector('#contact-form');
+  const msgEl     = document.querySelector('.form-msg');
   const submitBtn = document.querySelector('.btn-submit');
 
-  // Open modal
   document.querySelectorAll('[data-open-contact]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -190,7 +123,6 @@ function initContactForm() {
     });
   });
 
-  // Close modal
   document.querySelector('.modal-close').addEventListener('click', closeModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
@@ -201,40 +133,38 @@ function initContactForm() {
     form.reset();
     msgEl.className = 'form-msg';
     msgEl.textContent = '';
-    document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
   }
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    clearErrors();
 
     const name    = form.querySelector('[name="name"]').value.trim();
     const email   = form.querySelector('[name="email"]').value.trim();
     const subject = form.querySelector('[name="subject"]').value.trim();
     const message = form.querySelector('[name="message"]').value.trim();
 
+    if (!name || name.length < 2) { showError('Name must be at least 2 characters.'); return; }
+    if (!email || !/\S+@\S+\.\S+/.test(email)) { showError('Please enter a valid email.'); return; }
+    if (!message || message.length < 10) { showError('Message must be at least 10 characters.'); return; }
+
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
     try {
-      const res = await fetch(`${API}/contact`, {
+      const res = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_ID', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ name, email, subject, message })
       });
-      const json = await res.json();
 
-      if (!res.ok) {
-        if (json.errors) {
-          json.errors.forEach(err => showError(err));
-        }
-        msgEl.className = 'form-msg error';
-        msgEl.textContent = json.errors ? json.errors[0] : 'Something went wrong.';
-      } else {
+      if (res.ok) {
         msgEl.className = 'form-msg success';
-        msgEl.textContent = json.message;
+        msgEl.textContent = "Message sent! I'll get back to you soon.";
         form.reset();
         setTimeout(closeModal, 2800);
+      } else {
+        msgEl.className = 'form-msg error';
+        msgEl.textContent = 'Something went wrong. Please try again.';
       }
     } catch {
       msgEl.className = 'form-msg error';
@@ -246,19 +176,8 @@ function initContactForm() {
   });
 
   function showError(msg) {
-    const errEls = document.querySelectorAll('.form-error');
-    errEls.forEach(el => {
-      if (!el.classList.contains('visible')) {
-        el.textContent = msg;
-        el.classList.add('visible');
-      }
-    });
-  }
-
-  function clearErrors() {
-    document.querySelectorAll('.form-error').forEach(el => el.classList.remove('visible'));
-    msgEl.className = 'form-msg';
-    msgEl.textContent = '';
+    const el = document.querySelector('.form-error');
+    if (el) { el.textContent = msg; el.classList.add('visible'); }
   }
 }
 
@@ -266,13 +185,9 @@ function initContactForm() {
 function observeFadeIn() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
 }
 
@@ -286,7 +201,6 @@ function initNav() {
     });
   });
 
-  // Active nav highlighting
   const sections = ['hero', 'about', 'projects', 'education', 'organizations', 'footer'];
   const navLinks = document.querySelectorAll('.nav-links a');
 
@@ -300,13 +214,10 @@ function initNav() {
     });
   }, { threshold: 0.4 });
 
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) obs.observe(el);
-  });
+  sections.forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
 }
 
-// ===================== HERO SEE MY WORK SCROLL =====================
+// ===================== HERO SEE MY WORK =====================
 function initHeroCta() {
   document.querySelector('.hero-cta').addEventListener('click', () => {
     document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
