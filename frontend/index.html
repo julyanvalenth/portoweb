@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Julyan Valenth — Portfolio</title>
+  <meta name="description" content="Julyan Valenth Jonathan Sambouw — Computer Science student specializing in Software Engineering. Flutter & Node.js developer based in Jakarta." />
+
+  <!-- Preconnect fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== NAV ===================== -->
+  <nav class="nav">
+    <a class="nav-logo" data-scroll="#hero" href="#hero">Julyan Valenth</a>
+    <div class="nav-links">
+      <a href="#about"         data-scroll="#about">About</a>
+      <a href="#projects"      data-scroll="#projects">Projects</a>
+      <a href="#education"     data-scroll="#education">Education</a>
+    </div>
+    <button class="nav-cta" data-open-contact>Contact</button>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <!-- Glow effects -->
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <!-- Photo right half -->
+    <div class="hero-photo">
+      <img
+        src="https://www.figma.com/api/mcp/asset/76556645-d332-4af0-92c8-11dc6f06bbda"
+        alt="Julyan Valenth"
+        onerror="this.style.display='none'"
+      />
+      <div class="hero-photo-overlay"></div>
+    </div>
+
+    <!-- Social links left -->
+    <div class="hero-socials">
+      <div class="hero-social-line hero-social-line-top"></div>
+      <div class="hero-social-links"></div>
+      <div class="hero-social-line hero-social-line-bot"></div>
+    </div>
+
+    <!-- Main content bottom -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="dot"></div>
+        <span>Available for Work</span>
+      </div>
+
+      <h1 class="hero-name">Julyan Valenth</h1>
+
+      <div class="hero-bottom">
+        <div class="hero-desc">
+          <p>
+            Computer Science undergraduate majoring in
+            <span class="accent">Software Engineering</span>, with a deep interest in
+            <span class="accent">mobile application</span>
+            development. Experienced in building mobile applications hands-on using Flutter and Node.js.
+          </p>
+          <div class="hero-cta" role="button" tabindex="0">
+            <span>See my Work</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="hero-role">
+          <p>Tech Interest</p>
+          <p class="bold">&amp; Developer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="section-tag fade-in">
+      <span class="label">// 01 — ABOUT</span>
+      <div class="rule"></div>
+    </div>
+
+    <div class="about-grid">
+      <!-- Left: statement -->
+      <div>
+        <h2 class="about-statement fade-in">
+          I'm a <span class="accent">passionate developer</span> who turns ideas into real mobile products.
+          I focus on <span class="accent">clean code</span>, sharp solutions, and seamless user experience.
+        </h2>
+      </div>
+
+      <!-- Right: bio + skills + CTA -->
+      <div class="about-right">
+        <p class="about-bio fade-in">
+          Hi! I'm Julyan Valenth Jonathan Sambouw, a Computer Science student specializing in Software Engineering based in Jakarta. I specialize in building intuitive mobile applications that combine clean architecture with great user experience.
+        </p>
+        <p class="about-bio fade-in">
+          With hands-on experience in both mobile and back-end development, I bridge the gap between solid technical foundations and seamless app experiences. I'm passionate about solving real-world problems through thoughtful mobile solutions built with Flutter, Dart, and Node.js.
+        </p>
+        <div class="skills-label fade-in">SKILLS &amp; TOOLS</div>
+        <div class="skills-list fade-in">
+          <!-- Populated by JS -->
+        </div>
+        <a class="btn-primary fade-in btn-cv" href="/assets/cv.pdf" download>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 2v8m0 0L5 7m2.5 3L10 7M2 13h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download CV
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="projects-header fade-in">
+      <div class="projects-header-left">
+        <span class="label">// 02 — PROJECTS</span>
+        <div class="rule"></div>
+      </div>
+      <div class="view-all">
+        <span>View All</span>
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+          <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="projects-heading fade-in">
+      <h2 class="section-heading">Selected Work</h2>
+    </div>
+
+    <div class="projects-grid">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ===================== EDUCATION ===================== -->
+  <section id="education">
+    <div class="section-tag fade-in">
+      <span class="label">// 03 — EDUCATION</span>
+      <div class="rule"></div>
+    </div>
+
+    <div class="fade-in" style="padding-top:24px">
+      <h2 class="section-heading">Academic Background</h2>
+    </div>
+
+    <div class="edu-list">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ===================== ORGANIZATIONAL ===================== -->
+  <section id="organizations">
+    <div class="section-tag fade-in">
+      <span class="label">// 04 — ORGANIZATIONAL</span>
+      <div class="rule"></div>
+    </div>
+
+    <div class="fade-in section-heading" style="padding-top:24px">
+      <h2 class="section-heading">Organizational Experience</h2>
+    </div>
+
+    <div class="org-list edu-list">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="footer">
+    <div class="footer-top fade-in">
+      <div>
+        <p class="footer-mini">// LET'S CONNECT</p>
+        <h2 class="footer-heading">Let's Work Together</h2>
+      </div>
+      <a class="btn-say-hello" href="mailto:julyanvalenth@email.com" data-open-contact>
+        <span>Say Hello</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M2 14L14 2M14 2H6M14 2V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ===================== CONTACT MODAL ===================== -->
+  <div class="modal-overlay">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <p class="modal-sub">// GET IN TOUCH</p>
+      <h2 class="modal-title" id="modal-title">Send a Message</h2>
+      <p class="about-bio" style="font-size:13px;margin-top:-8px">
+        Reach out to <span class="modal-contact-email" style="color:var(--cyan)">julyanvalenth@email.com</span>
+      </p>
+
+      <form id="contact-form" novalidate>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label for="f-name">NAME</label>
+              <input id="f-name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="f-email">EMAIL</label>
+              <input id="f-email" name="email" type="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-subject">SUBJECT</label>
+            <input id="f-subject" name="subject" type="text" placeholder="What's it about?" />
+          </div>
+          <div class="form-group">
+            <label for="f-message">MESSAGE</label>
+            <textarea id="f-message" name="message" rows="4" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <span class="form-error"></span>
+          <div class="form-msg"></div>
+          <button type="submit" class="btn-submit">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
