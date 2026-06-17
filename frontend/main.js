@@ -50,7 +50,8 @@ function loadProjects() {
   const grid = document.querySelector('.projects-grid');
   grid.innerHTML = PORTFOLIO.projects.map(p => `
     <div class="project-card fade-in">
-      <div class="project-thumb">
+      <div class="project-thumb${p.image ? ' has-image' : ''}">
+        ${p.image ? `<img src="${p.image}" alt="${p.title} preview" class="project-thumb-img" loading="lazy" />` : ''}
         <span class="project-num">${p.number}</span>
         <div class="project-icon">
           <div class="project-icon-box">${svgArrow(22)}</div>

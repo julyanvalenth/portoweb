@@ -3,11 +3,11 @@ const PORTFOLIO = {
     name: "Julyan Valenth",
     badge: "Available for Work",
     description: "Computer Science undergraduate majoring in Software Engineering, with a deep interest in mobile application development. Experienced in building mobile applications hands-on using Flutter and Node.js.",
-    email: "julyanvalenth@email.com",
+    email: "julyan.sambouw@binus.ac.id",
     cv_url: "assets/cv.pdf",
     socials: {
-      linkedin:  "https://www.linkedin.com/in/julyan-sambouw-2607a332a",
-      github:    "https://github.com/julyanvalenth",
+      linkedin: "https://www.linkedin.com/in/julyan-sambouw-2607a332a",
+      github: "https://github.com/julyanvalenth",
       instagram: "https://www.instagram.com/valenthjs?igsh=MWkydTU4aXBicHRiYg=="
     },
     bio: [
@@ -16,7 +16,7 @@ const PORTFOLIO = {
     ],
     footer: {
       heading: "Let's Work Together",
-      email: "julyanvalenth@email.com"
+      email: "julyan.sambouw@binus.ac.id"
     }
   },
   skills: [
@@ -31,6 +31,7 @@ const PORTFOLIO = {
       year: "2026",
       description: "Mobile shop app for Genshin Impact weapons & artifacts with Google OAuth, JWT auth, admin panel, and transaction history.",
       tags: ["Flutter", "Node.js", "PostgreSQL"],
+      image: "assets/projects/genshin-import.png",
       link: "https://github.com/julyanvalenth/Genshin-Import-AOL"
     },
     {
@@ -39,6 +40,7 @@ const PORTFOLIO = {
       year: "2026",
       description: "Mobile budgeting app that automatically syncs and parses bank & e-wallet transaction emails from Gmail for personal finance tracking.",
       tags: ["Flutter", "Node.js", "Gmail API"],
+      image: "assets/projects/budgetmate.png",
       link: "https://github.com/julyanvalenth/Budgeting"
     },
     {
@@ -47,6 +49,7 @@ const PORTFOLIO = {
       year: "2026",
       description: "Computational analysis of GC content impact on thermal adaptation in 91 bacterial genomes using inferential statistics and machine learning.",
       tags: ["Python", "Jupyter", "Machine Learning"],
+      image: "assets/projects/gc-content-analysis.png",
       link: "https://github.com/julyanvalenth/AOL-Computational-Biology"
     }
   ],
