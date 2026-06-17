@@ -58,10 +58,6 @@ function loadProjects() {
       <div class="${thumbClass}">
         ${imgHtml}
         <span class="project-num">${p.number}</span>
-        <div class="project-icon">
-          <div class="project-icon-box">${svgArrow(22)}</div>
-          <span class="project-preview-label">PROJECT PREVIEW</span>
-        </div>
       </div>
       <div class="project-body">
         <div class="project-meta">
